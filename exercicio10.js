@@ -9,41 +9,27 @@ segundos, troque o estado da lâmpada e retorne para um callback que
 deve exibir no console o estado atual da lâmpada. Dica: pesquisar sobre
 a função setInterval.*/
 
+let on = true; 
 
-var stateInicial = true
 
-function mudarEstado() {
-    if (pegarEstado() == true) { // yes
-        stateFinal(true); //true
-        guardarEstado(false);
-    } else {
-        stateFinal(false);
-        guardarEstado(true);
-    }
-};
-
-function pegarEstado() {
-    return stateInicial; //true
-};
-
-function guardarEstado(teste) {
-    statInicial = teste; //inicia = true | termina = false
-};
-
-function stateFinal(state, callback){ //state = true
-    if(state == false){
-        state = 'Apagada'
-        return callback(state)
-    }
-    else{
-        state = 'Acessa'
-        return callback(state)
-    }
+const getIntervalNumber = () => {
+  const random = Math.random() * (4 - 2) + 2;
+  return Math.round(random) * 1000;
 }
 
-stateFinal(pegarEstado(), e => { 
-    stateAtual = e
-    setInterval(() => {
-        console.log(stateAtual)
-    }, 2000) 
-});
+let interval = getIntervalNumber(); 
+
+
+const checkLight = (callback) => {
+  let timer = setInterval(() => {
+    interval = getIntervalNumber();
+    clearInterval(timer);
+  
+    on = !on;
+    callback(on);
+
+    checkLight(value => { console.log(value) });
+  }, interval);
+}
+
+checkLight(value => { console.log(value) });
